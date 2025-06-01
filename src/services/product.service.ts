@@ -6,6 +6,13 @@ export const getAllProducts = async () => {
     return result;
 };
 
+export const getProductById = async (id: string) => {
+    const db = await dbPromise;
+    const numericId = Number(id); // Convierte el id a número
+    const result = await db.get('SELECT * FROM products WHERE id = ?', [numericId]);
+    return result;
+}
+
 export const createProduct = async (data: any) => {
     try {
         const { name, price, description, image, cat_id } = data;

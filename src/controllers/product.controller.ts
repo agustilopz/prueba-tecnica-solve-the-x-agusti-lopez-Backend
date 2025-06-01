@@ -11,6 +11,22 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
 };
 
+export const getProductById = async (req: Request, res: Response) => {
+    try {
+                console.log('ID recibido:', req.params.id); // <-- Añade este log
+
+        const id = req.params.id; // ID del producto desde la URL
+        const product = await productService.getProductById(id);
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Error al recuperar el producto' });
+    }
+}
+
 
 export const createProduct = async (req: Request, res: Response) => {
     try {
