@@ -25,6 +25,7 @@ export const getProductById = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(500).json({ error: 'Error al recuperar el producto' });
     }
+    
 }
 
 
