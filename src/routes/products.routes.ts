@@ -15,13 +15,17 @@ router.get('/', authenticateJWT, productController.getAllProducts);
 router.get('/:id', authenticateJWT, productController.getProductById);
 */
 
-router.post('/', authenticateJWT, productController.createProduct);
-router.put('/:id', authenticateJWT, productController.updateProduct);
-router.delete('/:id', authenticateJWT, productController.deleteProduct);
-/*
+
+
 router.post('/', productController.createProduct);
 router.put('/:id', productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);
+
+
+/*
+router.post('/', authenticateJWT, productController.createProduct);
+router.put('/:id', authenticateJWT, productController.updateProduct);
+router.delete('/:id', authenticateJWT, productController.deleteProduct);
 */
 
 export default router;
