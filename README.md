@@ -1,4 +1,4 @@
-# Prova Técnica SolveTheX - Backend
+# Prueba Técnica SolveTheX - Backend
 
 Este repositorio contiene el backend de la prueba técnica para SolveTheX. Se trata de una API REST desarrollada en **Node.js** y **TypeScript**, que utiliza **SQLite** como base de datos local y **JSON Web Token (JWT)** para autenticación.
 
