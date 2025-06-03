@@ -1,3 +1,15 @@
+/**
+ * Tests unitarios para la función calculatePriceWithIVA.
+ * 
+ * Esta suite comprueba que la función:
+ * - Calcula correctamente el precio con un 21% de IVA.
+ * - Redondea el resultado a dos decimales.
+ * - Devuelve 0 si el precio es 0.
+ * - Maneja correctamente valores decimales pequeños.
+ * 
+ * Utiliza Jest como framework de testing.
+ */
+
 import { calculatePriceWithIVA } from './priceUtils';
 
 describe('calculatePriceWithIVA', () => {

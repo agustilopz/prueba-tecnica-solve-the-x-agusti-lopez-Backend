@@ -1,3 +1,17 @@
+/**
+ * Configuración principal de la aplicación Express.
+ * 
+ * - Inicializa la app de Express.
+ * - Aplica middlewares globales: CORS y parseo de JSON.
+ * - Define las rutas principales para productos y autenticación.
+ * 
+ * Rutas:
+ * - /products -> Gestiona productos (CRUD)
+ * - /auth     -> Autenticación de usuarios (login)
+ * 
+ * Exporta la instancia de la aplicación para ser utilizada por el servidor.
+ */
+
 import express from 'express';
 import productRoutes from './routes/products.routes';
 import cors from 'cors';

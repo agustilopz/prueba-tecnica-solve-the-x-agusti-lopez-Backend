@@ -1,14 +1,35 @@
+/**
+ * Controlador de productos.
+ * Gestiona las operaciones CRUD sobre productos y aplica la lógica de negocio (precio con IVA).
+ * 
+ * Endpoints gestionados:
+ * - GET    /products           -> getAllProducts
+ * - GET    /products/:id       -> getProductById
+ * - POST   /products           -> createProduct
+ * - PUT    /products/:id       -> updateProduct
+ * - DELETE /products/:id       -> deleteProduct
+ * 
+ * Lógica de negocio:
+ * - Al devolver productos, añade el campo 'price_with_iva' (precio con 21% de IVA).
+ */
 import { Request, Response } from 'express';
 import * as productService from '../services/product.service';
 
+/**
+ * Obtiene todos los productos.
+ * Añade el campo 'price_with_iva' a cada producto.
+ * 
+ * @route GET /products
+ * @returns {Array} Lista de productos con precio e IVA.
+ */
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await productService.getAllProducts();
 
-    // Lógica de negocio: añadir campo 'priceWithIVA' al devolver cada producto
+    // Lógica de negocio: añadir campo 'price_with_iva' al devolver cada producto
     const productsWithIVA = products.map((product) => ({
       ...product,
-      price_with_iva: (product.price * 1.21).toFixed(2), // redondeado a 2 decimales
+      price_with_iva: (product.price * 1.21).toFixed(2), 
     }));
 
     res.json(productsWithIVA);
@@ -17,11 +38,19 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Obtiene un producto por su ID.
+ * Añade el campo 'price_with_iva' al producto.
+ * 
+ * @route GET /products/:id
+ * @param {string} id - ID del producto
+ * @returns {Object} Producto con precio e IVA, o error 404 si no existe.
+ */
 export const getProductById = async (req: Request, res: Response) => {
     try {
-                console.log('ID recibido:', req.params.id); // <-- Añade este log
+                console.log('ID recibido:', req.params.id);
 
-        const id = req.params.id; // ID del producto desde la URL
+        const id = req.params.id; 
         const product = await productService.getProductById(id);
        if (product) {
   res.json({
@@ -37,7 +66,13 @@ export const getProductById = async (req: Request, res: Response) => {
     
 }
 
-
+/**
+ * Crea un nuevo producto.
+ * 
+ * @route POST /products
+ * @body { name, price, description, image, cat_id }
+ * @returns {Object} Mensaje de éxito o error.
+ */
 export const createProduct = async (req: Request, res: Response) => {
     try {
         const result = await productService.createProduct(req.body);
@@ -51,6 +86,14 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Actualiza un producto existente.
+ * 
+ * @route PUT /products/:id
+ * @param {string} id - ID del producto
+ * @body { name, price, description, image, cat_id }
+ * @returns {Object} Mensaje de éxito o error.
+ */
 export const updateProduct = async (req: Request, res: Response) => {
     try {
     const id = req.params.id;       // ID del producto desde la URL
@@ -66,6 +109,14 @@ export const updateProduct = async (req: Request, res: Response) => {
 }
 };
 
+
+/**
+ * Elimina un producto por su ID.
+ * 
+ * @route DELETE /products/:id
+ * @param {string} id - ID del producto
+ * @returns {Object} Mensaje de éxito o error.
+ */
 export const deleteProduct = async (req: Request, res: Response) => {
     try {
     const id = req.params.id;
