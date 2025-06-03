@@ -2,13 +2,19 @@ import { Request, Response } from 'express';
 import * as productService from '../services/product.service';
 
 export const getAllProducts = async (req: Request, res: Response) => {
-    try {
-        const products = await productService.getAllProducts();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ error: 'Error al recuperar los productos' });
-    }
+  try {
+    const products = await productService.getAllProducts();
 
+    // Lógica de negocio: añadir campo 'priceWithIVA' al devolver cada producto
+    const productsWithIVA = products.map((product) => ({
+      ...product,
+      price_with_iva: (product.price * 1.21).toFixed(2), // redondeado a 2 decimales
+    }));
+
+    res.json(productsWithIVA);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al recuperar los productos' });
+  }
 };
 
 export const getProductById = async (req: Request, res: Response) => {
@@ -17,9 +23,12 @@ export const getProductById = async (req: Request, res: Response) => {
 
         const id = req.params.id; // ID del producto desde la URL
         const product = await productService.getProductById(id);
-        if (product) {
-            res.json(product);
-        } else {
+       if (product) {
+  res.json({
+    ...product,
+    price_with_iva: (product.price * 1.21).toFixed(2),
+  });
+} else {
             res.status(404).json({ error: 'Producto no encontrado' });
         }
     } catch (err) {

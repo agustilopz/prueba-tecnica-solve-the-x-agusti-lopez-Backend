@@ -2,14 +2,14 @@ import dbPromise from '../config/db';
 
 export const getAllProducts = async () => {
     const db = await dbPromise;
-    const result = await db.all('SELECT * FROM products JOIN categories ON products.cat_id = categories.id ORDER BY products.name');
+    const result = await db.all('SELECT * FROM products ORDER BY products.name');
     return result;
 };
 
 export const getProductById = async (id: string) => {
     const db = await dbPromise;
     const numericId = Number(id); // Convierte el id a número
-    const result = await db.get('SELECT * FROM products JOIN categories ON products.cat_id = categories.id WHERE id = ?', [numericId]);
+    const result = await db.get('SELECT * FROM products WHERE id = ?', [numericId]);
     return result;
 }
 
